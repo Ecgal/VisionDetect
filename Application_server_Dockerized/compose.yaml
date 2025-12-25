@@ -1,0 +1,82 @@
+services:
+  ldap:
+    image: osixia/openldap:latest
+    hostname: "ldap.asd.msd.localhost"
+    ports:
+      - "8389:389"
+      - "8636:636"
+    environment:
+      - LDAP_ORGANIZATION=msdAsd
+      - LDAP_DOMAIN=ldap.asd.msd.localhost
+      - LDAP_BASE_DN=dc=ldap,dc=asd,dc=msd,dc=localhost
+      - LDAP_BIND_PASSWORD=shouldntMatter
+      - LDAP_ADMIN_PASSWORD=shouldntMatter
+      - LDAP_LOG_LEVEL=320
+      - LDAP_TLS=false
+      - LDAP_REMOVE_CONFIG_AFTER_SETUP=false
+      - LDAP_SSL_HELPER_PREFIX=none
+      - LDAP_ALLOW_CLEAR_TEXT_PASSWORDS=true
+    command: "--copy-service --loglevel debug"
+    networks:
+      - public
+      - backend
+    volumes:
+      - ldap_data:/var/lib/ldap
+      - ldap_config:/etc/ldap/slapd.d
+
+  notes-app-server:
+    build:
+      context: ./jwtAuthenticationDemo
+      dockerfile: Dockerfile
+    image: notes-app-ldap:latest
+    depends_on:
+      - ldap
+      - model-server
+    ports:
+      - "8080:8080"
+    hostname: "api.asd.msd.localhost"
+    environment:
+      - JWT_SECRET=useSomethingBetter
+      - JWT_ISSUER=http://0.0.0.0:8080/
+      - JWT_AUDIENCE=ktorAudience
+      - JWT_REALM=ktorRealm
+      - SECRET=useSomethingBetter
+      - LDAP_URL=ldap://ldap:389
+      - LDAP_BASE_DN=dc=ldap,dc=asd,dc=msd,dc=localhost
+      - LDAP_USERS_RDN=ou=users
+      - LDAP_BIND_DN=cn=admin,dc=ldap,dc=asd,dc=msd,dc=localhost
+      - LDAP_BIND_PASSWORD=shouldntMatter
+      - MODEL_SERVER_URL=http://model-server:8001
+    networks:
+      - backend
+      - public
+    volumes:
+      - ldap_data:/var/lib/ldap
+      - ldap_config:/etc/ldap/slapd.d
+      - ./data:/app/data
+
+  model-server:
+    build:
+      context: ./Model_Server
+      dockerfile: Dockerfile
+    image: model-server:latest
+    expose:
+      - "8001"
+    networks:
+      - backend
+    volumes:
+      - ./Model_Server/models:/app/models
+      - ./Model_Server/outputs:/app/outputs
+
+volumes:
+  ldap_data:
+    name: ldap_data_volume
+  ldap_config:
+    name: ldap_config_volume
+
+networks:
+  public:
+    driver: bridge
+  backend:
+    driver: bridge
+    internal: true
