@@ -115,8 +115,8 @@ When you first open the app, you’ll be prompted to login or register.
 Credentials are validated via LDAP on the backend.
 Once logged in, you’ll be directed to the Camera screen.
 You can:
-Switch between MLKit and EfficientDet models.
-Capture and upload an image for server-side AI heatmap analysis.
+- Switch between MLKit and EfficientDet models.
+- Capture and upload an image for server-side AI heatmap analysis.
 View all processed images in the Photo Gallery.
 
 
