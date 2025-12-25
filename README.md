@@ -98,10 +98,11 @@ Or simply run the app from android studio.
 
 ### 3. Start the Backend (Ktor Server) + Model Server (FastAPI + Torch + DINOv2) 
 The Ktor backend handles:
-LDAP authentication
-JWT token issuing
-User photo storage
-Communication with the model server
+- LDAP authentication
+- JWT token issuing
+- User photo storage
+- Communication with the model server
+- 
 The model server performs the AI heatmap generation using Meta’s DINOv2.
 
 From the /server directory:
@@ -114,10 +115,11 @@ docker compose up --build
 When you first open the app, you’ll be prompted to login or register.
 Credentials are validated via LDAP on the backend.
 Once logged in, you’ll be directed to the Camera screen.
+
 You can:
 - Switch between MLKit and EfficientDet models.
 - Capture and upload an image for server-side AI heatmap analysis.
-View all processed images in the Photo Gallery.
+- View all processed images in the Photo Gallery.
 
 
 
