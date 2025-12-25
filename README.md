@@ -80,30 +80,45 @@ VisionDetect bridges local AI inference** and server-based model analysis in one
 
 ##  Setup & Run
 
-### 🖥️ 1. Clone the repository
+###  1. Clone the repository
 ```bash
 git clone https://github.com/<your-username>/VisionDetect.git
 cd VisionDetect
 ```
 
+###  2. Launch the Android App
+Open the project folder in Android Studio.
+Make sure your emulator or physical device is running Android 13+ (API 33+).
+Build and install the app:
+
+```bash
+./gradlew installDebug
+```
+Or simply run the app from android studio.
+
+### 3. Start the Backend (Ktor Server) + Model Server (FastAPI + Torch + DINOv2) 
+The Ktor backend handles:
+LDAP authentication
+JWT token issuing
+User photo storage
+Communication with the model server
+The model server performs the AI heatmap generation using Meta’s DINOv2.
+
+From the /server directory:
+
+``` bash
+docker compose up --build
+```
+
+### 4. Login or Register
+When you first open the app, you’ll be prompted to login or register.
+Credentials are validated via LDAP on the backend.
+Once logged in, you’ll be directed to the Camera screen.
+You can:
+Switch between MLKit and EfficientDet models.
+Capture and upload an image for server-side AI heatmap analysis.
+View all processed images in the Photo Gallery.
 
 
-
-VisionDetect/
-├── app/                    # Android app (Jetpack Compose)
-│   ├── uiElements/         # Camera, Gallery, Login/Register screens
-│   ├── repository/         # API + model interaction
-│   ├── viewmodel/          # Business logic
-│   └── model/              # Data classes
-│
-├── server/                 # Ktor backend (Dockerized)
-│   ├── routes/             # API endpoints
-│   ├── auth/               # LDAP integration
-│   └── storage/            # Image persistence
-│
-└── model-server/           # FastAPI + Torch DINOv2 model server
-    ├── app.py
-    ├── model/weights/
-    └── Dockerfile
 
 
