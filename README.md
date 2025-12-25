@@ -5,6 +5,14 @@ and also supports server side AI analysis through a Torch + FastAPI model pipeli
 
 The app features a futuristic HUD-inspired interface, inspired by 80s sci-fi movies and TV shows.
 
+
+
+![App Overview](images/visiondetect_ui.png)
+
+
+
+
+
 ---
 
 ## Overview
@@ -15,14 +23,6 @@ VisionDetect bridges local AI inference** and server-based model analysis in one
 - A secure backend authenticates users via LDAP and manages photo uploads.
 - Uploaded photos are analyzed by a DINOv2 model served via FastAPI, generating heatmap overlays that highlight what the AI considers the most "interesting" regions.
 - Both the notes server and model server are Dockerized, ensuring easy deployment and reproducibility.
-
----
-
-## Architecture
-
-
-
-
 
 ---
 
