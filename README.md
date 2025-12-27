@@ -8,10 +8,10 @@ The app features a futuristic HUD-inspired interface, inspired by 80s sci-fi mov
 
 
 ![Local AI Model Object Detection](images/image_1.png)
-![AI Interest Analysis Heatmap](images/image_3.png)
-![AI Interest Analysis Heatmap](images/image_4.png)
-![User Capture Gallery](images/image_5.png)
-![Login Screen](images/image_2.png)
+![AI Interest Analysis Heatmap](images/Image_3.png)
+![AI Interest Analysis Heatmap](images/Image_4.png)
+![User Capture Gallery](images/Image_5.png)
+![Login Screen](images/Image_2.png)
 
 
 
